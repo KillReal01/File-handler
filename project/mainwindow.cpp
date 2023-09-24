@@ -61,6 +61,8 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+    workerThread.quit();
+    workerThread.wait();
     delete worker;
 }
 
@@ -73,7 +75,7 @@ namespace{
      *
      * return Ключ для шифрования
     */
-    std::vector<uint8_t> convertToInt(QString& input)
+    std::vector<uint8_t> convertToInt(const QString& input)
     {
         std::vector<uint8_t> result(MainWindow::size);
         for(int i = 0; i < MainWindow::size; ++i){
@@ -95,7 +97,7 @@ namespace{
      *
      * return Ключ для шифрования
     */
-    void modifyOperation(char* data, std::vector<uint8_t>& vec)
+    void modifyOperation(char* data, const std::vector<uint8_t>& vec)
     {
         for (int i = 0; i < MainWindow::size; ++i){
             data[i] ^= vec[i];
@@ -131,7 +133,7 @@ void MainWindow::handleFile(QFile& inputFile, QFile& outputFile)
 }
 
 
-void MainWindow::modifyFilename(QFile& outputFile, QString& outputFilePath)
+void MainWindow::modifyFilename(QFile& outputFile, const QString& outputFilePath)
 {
     int i = 1;
     if (!file_rewrite){

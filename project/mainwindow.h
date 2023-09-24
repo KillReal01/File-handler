@@ -87,7 +87,7 @@ private:
     void handleFile(QFile& inputFile, QFile& outputFile);
 
     /*@brief Модификация имени файла */
-    void modifyFilename(QFile&, QString&);
+    void modifyFilename(QFile& outputFile, const QString& outputFilePath);
 
 private slots:
     /*@brief Слот для запуска программы */

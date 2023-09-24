@@ -42,7 +42,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->lineEdit_modify_key->setMaxLength(MainWindow::size * 2);
     ui->lineEdit_modify_key->setInputMask("HHHHHHHHHHHHHHHH");
 
-
     // thread
     worker = new Worker(this);
     worker->moveToThread(&workerThread);
@@ -67,9 +66,16 @@ MainWindow::~MainWindow()
 
 
 namespace{
-    std::vector<int> convertToInt(QString& input)
+    /*
+     * @brief Конвертирование маски из QString в вектор байт
+     *
+     * param input Строка с ключом для шифрования.
+     *
+     * return Ключ для шифрования
+    */
+    std::vector<uint8_t> convertToInt(QString& input)
     {
-        std::vector<int> result(MainWindow::size);
+        std::vector<uint8_t> result(MainWindow::size);
         for(int i = 0; i < MainWindow::size; ++i){
             QString hexString = QString(input[2 * i]) + QString(input[2 * i + 1]);
             bool ok;
@@ -81,7 +87,15 @@ namespace{
         return result;
     }
 
-    void modifyOperation(char* data, std::vector<int>& vec)
+    /*
+     * @brief Модифицирование данных
+     *
+     * param data Указатель на входные данные
+     * param vec Вектор с ключом шифрования
+     *
+     * return Ключ для шифрования
+    */
+    void modifyOperation(char* data, std::vector<uint8_t>& vec)
     {
         for (int i = 0; i < MainWindow::size; ++i){
             data[i] ^= vec[i];
@@ -134,8 +148,6 @@ void MainWindow::modifyFilename(QFile& outputFile, QString& outputFilePath)
 void MainWindow::on_pushButton_run_clicked()
 {
     init_values();
-
-    // get encryption key
     encryption = convertToInt(key);
     workerThread.start();
 }

@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <QFile>
 
+
 Worker::Worker(MainWindow *parent)
 {
     mw = parent;
@@ -27,6 +28,7 @@ void Worker::doWork()
     emit finished();
 }
 
+
 void Worker::handleFiles()
 {
     QStringList fileList = mw->inputDirectory.entryList(QStringList(mw->file_mask), QDir::Files);
@@ -38,7 +40,6 @@ void Worker::handleFiles()
         QFile inputFile(inputFilePath);
         QFile outputFile(outputFilePath);
 
-        //rewrite or modify filename
         mw->modifyFilename(outputFile, outputFilePath);
 
         if (!inputFile.isOpen() && inputFile.open(QIODevice::ReadOnly))

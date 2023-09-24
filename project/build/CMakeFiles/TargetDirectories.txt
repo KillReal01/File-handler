@@ -1,0 +1,4 @@
+/home/kbereza/File-handler/project/build/CMakeFiles/file.dir
+/home/kbereza/File-handler/project/build/CMakeFiles/edit_cache.dir
+/home/kbereza/File-handler/project/build/CMakeFiles/rebuild_cache.dir
+/home/kbereza/File-handler/project/build/CMakeFiles/file_autogen.dir

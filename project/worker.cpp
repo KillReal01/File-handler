@@ -10,10 +10,7 @@ Worker::Worker(MainWindow *parent)
 }
 
 
-Worker::~Worker()
-{
-    delete mw;
-}
+Worker::~Worker(){}
 
 
 void Worker::doWork()

@@ -60,10 +60,10 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
-    delete ui;
     workerThread.quit();
     workerThread.wait();
     delete worker;
+    delete ui;
 }
 
 
